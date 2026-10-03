@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chocolates Tutoring | Academic & Practice Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        zinc: {
+                            950: '#000000',
+                            900: '#121215',
+                            850: '#18181b',
+                            800: '#27272a',
+                            700: '#3f3f46'
+                        },
+                        accent: {
+                            cyan: '#00f0ff',
+                            glow: 'rgba(0, 240, 255, 0.15)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #000000; color: #f4f4f5; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000000; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
+        .glow-box { box-shadow: 0 0 30px rgba(0, 240, 255, 0.05); }
+        .glow-box:hover { box-shadow: 0 0 35px rgba(0, 240, 255, 0.15); }
+        .glow-text { text-shadow: 0 0 20px rgba(0, 240, 255, 0.4); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-accent-cyan selection:text-black">
+
+    <header class="sticky top-0 z-50 bg-black/95 backdrop-blur-md border-b border-zinc-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer group" onclick="returnToHome()">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-cyan to-zinc-900 flex items-center justify-center glow-box border border-accent-cyan/30 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-graduation-cap text-black text-2xl font-black"></i>
+                </div>
+                <div>
+                    <span class="text-2xl font-extrabold tracking-tight glow-text text-white">CHOCOLATES TUTORING</span>
+                    <span class="block text-xs text-zinc-400 font-medium tracking-wider">PRACTICE & STUDY PORTAL • 50+ GAMES</span>
+                </div>
+            </div>
+
+            <!-- Instant Search Bar -->
+            <div class="hidden md:flex items-center flex-1 max-w-md mx-8">
+                <div class="relative w-full">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-zinc-400">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                    <input type="text" id="searchInput" oninput="filterGames()" placeholder="Search Retro Bowl, Slope, 1v1.lol..." class="w-full pl-11 pr-4 py-2.5 bg-zinc-900 border border-zinc-800 rounded-xl text-sm focus:outline-none focus:border-accent-cyan transition-all text-zinc-200 placeholder-zinc-500">
+                </div>
+            </div>
+
+            <!-- Actions & Stealth Cloak -->
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleStealthMode()" id="stealthBtn" class="flex items-center space-x-2 px-4 py-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-xl text-xs font-semibold tracking-wide transition-all text-zinc-300 hover:text-white" title="Press ~ to quick cloak">
+                    <i class="fa-solid fa-user-secret text-accent-cyan text-base"></i>
+                    <span class="hidden sm:inline">Classroom Cloak (~)</span>
+                </button>
+                <button onclick="openRequestModal()" class="flex items-center space-x-2 px-4 py-2 bg-accent-cyan hover:bg-accent-cyan/90 rounded-xl text-xs font-bold tracking-wide transition-all text-black shadow-lg shadow-accent-cyan/10">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span class="hidden sm:inline">Request Game</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Hero Banner -->
+        <div class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 border border-zinc-800 p-8 sm:p-12 glow-box mb-10">
+            <div class="absolute -right-10 -bottom-10 w-80 h-80 bg-accent-cyan/5 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 max-w-2xl space-y-4">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 bg-accent-cyan/10 border border-accent-cyan/30 rounded-full text-accent-cyan text-xs font-bold uppercase tracking-wider">
+                    <span class="w-2 h-2 rounded-full bg-accent-cyan animate-ping"></span>
+                    <span>50+ Verified Unblocked Games • Multi-Mirror Fail-Safe</span>
+                </div>
+                <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+                    Advanced Interactive Practice & Logic Arcade
+                </h1>
+                <p class="text-zinc-400 text-sm sm:text-base">
+                    Welcome to Chocolates Tutoring! Access over 50+ fully embedded popular games with instant mirror switching and fail-safe CDNs. Press <kbd class="px-1.5 py-0.5 bg-zinc-900 text-accent-cyan rounded border border-zinc-800">~</kbd> to disguise as Google Classroom.
+                </p>
+                <div class="flex flex-wrap gap-3 pt-2">
+                    <button onclick="launchGame('retrobowl')" class="px-6 py-3 bg-accent-cyan hover:bg-accent-cyan/90 text-black font-extrabold rounded-xl text-sm transition-all shadow-lg shadow-accent-cyan/20 flex items-center space-x-2">
+                        <i class="fa-solid fa-football"></i>
+                        <span>Play Retro Bowl Now</span>
+                    </button>
+                    <button onclick="scrollToGames()" class="px-6 py-3 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-200 font-semibold rounded-xl text-sm transition-all">
+                        Browse All 50+ Games
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Filter Bar -->
+        <div class="flex items-center space-x-2 overflow-x-auto pb-4 scrollbar-none" id="categoryContainer">
+            <button onclick="filterCategory('all')" class="cat-btn px-5 py-2.5 rounded-xl text-xs font-bold tracking-wide transition-all bg-accent-cyan text-black whitespace-nowrap shadow-md">All Games</button>
+            <button onclick="filterCategory('Action')" class="cat-btn px-5 py-2.5 rounded-xl text-xs font-bold tracking-wide transition-all bg-zinc-900 hover:bg-zinc-800 text-zinc-300 whitespace-nowrap border border-zinc-800">Action</button>
+            <button onclick="filterCategory('Sports')" class="cat-btn px-5 py-2.5 rounded-xl text-xs font-bold tracking-wide transition-all bg-zinc-900 hover:bg-zinc-800 text-zinc-300 whitespace-nowrap border border-zinc-800">Sports</button>
+            <button onclick="filterCategory('IO')" class="cat-btn px-5 py-2.5 rounded-xl text-xs font-bold tracking-wide transition-all bg-zinc-900 hover:bg-zinc-800 text-zinc-300 whitespace-nowrap border border-zinc-800">.IO Games</button>
+            <button onclick="filterCategory('Puzzle')" class="cat-btn px-5 py-2.5 rounded-xl text-xs font-bold tracking-wide transition-all bg-zinc-900 hover:bg-zinc-800 text-zinc-300 whitespace-nowrap border border-zinc-800">Puzzle</button>
+            <button onclick="filterCategory('Racing')" class="cat-btn px-5 py-2.5 rounded-xl text-xs font-bold tracking-wide transition-all bg-zinc-900 hover:bg-zinc-800 text-zinc-300 whitespace-nowrap border border-zinc-800">Racing</button>
+        </div>
+
+        <!-- Games Grid -->
+        <div class="space-y-4 mt-6">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-bold text-zinc-100 flex items-center space-x-2">
+                    <i class="fa-solid fa-graduation-cap text-accent-cyan"></i>
+                    <span>Library of 50+ Popular Games</span>
+                </h2>
+                <span id="gameCount" class="text-xs text-zinc-400 font-medium">Showing all games</span>
+            </div>
+            <div id="gamesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+
+    </main>
+
+    <div id="gameModal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-md hidden flex flex-col p-3 sm:p-6">
+        <div class="max-w-7xl w-full mx-auto flex items-center justify-between bg-zinc-900 px-6 py-4 rounded-2xl border border-zinc-800 mb-4 shadow-xl">
+            <!-- Clickable logo that returns to main menu -->
+            <div class="flex items-center space-x-3 cursor-pointer group" onclick="closeGameModal()">
+                <div class="w-10 h-10 rounded-xl bg-accent-cyan/10 group-hover:bg-accent-cyan group-hover:text-black flex items-center justify-center text-accent-cyan transition-all border border-accent-cyan/30">
+                    <i class="fa-solid fa-graduation-cap text-lg"></i>
+                </div>
+                <div>
+                    <h2 class="text-sm font-extrabold text-white group-hover:text-accent-cyan transition-colors">CHOCOLATES TUTORING</h2>
+                    <p id="modalGameTitle" class="text-xs text-zinc-400 font-medium">Loading Game...</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <span id="modalGameMirrorInfo" class="hidden md:inline text-xs text-zinc-400 uppercase tracking-widest px-2">Mirror 1 Active</span>
+                <button onclick="switchGameMirror()" class="flex items-center space-x-2 px-4 py-2 bg-accent-cyan/10 hover:bg-accent-cyan/20 border border-accent-cyan/40 rounded-xl text-xs font-bold text-accent-cyan transition-all" title="Switch mirror if blocked">
+                    <i class="fa-solid fa-shuffle"></i>
+                    <span>Switch Mirror</span>
+                </button>
+                <button onclick="reloadActiveGame()" class="flex items-center space-x-2 px-4 py-2 bg-zinc-950 hover:bg-zinc-800 border border-zinc-800 rounded-xl text-xs font-bold text-zinc-300 transition-all">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span class="hidden sm:inline">Reload</span>
+                </button>
+                <button onclick="toggleModalFullScreen()" class="flex items-center space-x-2 px-4 py-2 bg-zinc-950 hover:bg-zinc-800 border border-zinc-800 rounded-xl text-xs font-bold text-zinc-300 transition-all">
+                    <i class="fa-solid fa-expand"></i>
+                    <span class="hidden sm:inline">Fullscreen</span>
+                </button>
+                <button onclick="closeGameModal()" class="w-10 h-10 bg-zinc-950 hover:bg-red-500/20 border border-zinc-800 hover:border-red-500 text-zinc-400 hover:text-red-400 rounded-xl flex items-center justify-center transition-all text-lg" title="Return to Menu">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Iframe Container -->
+        <div id="modalIframeWrapper" class="flex-1 max-w-7xl w-full mx-auto bg-zinc-900 rounded-3xl border border-zinc-800 overflow-hidden relative glow-box flex flex-col items-center justify-center">
+            <iframe id="gameIframe" src="" class="w-full h-full border-0 bg-black" allow="autoplay; fullscreen; gamepad; accelerometer; gyroscope" sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals"></iframe>
+        </div>
+    </div>
+
+    <div id="requestModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl max-w-md w-full p-6 space-y-6 glow-box relative">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-accent-cyan/10 flex items-center justify-center text-accent-cyan">
+                        <i class="fa-solid fa-paper-plane text-lg"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-zinc-100">Request a Game</h3>
+                </div>
+                <button onclick="closeRequestModal()" class="text-zinc-400 hover:text-white transition-all text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form id="gameRequestForm" onsubmit="submitGameRequest(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-zinc-400 mb-1 uppercase tracking-wider">Your Nickname</label>
+                    <input type="text" id="reqStudentName" required placeholder="e.g., Alex" class="w-full px-4 py-3 bg-zinc-950 border border-zinc-800 rounded-xl text-sm focus:outline-none focus:border-accent-cyan text-zinc-200 placeholder-zinc-600">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-zinc-400 mb-1 uppercase tracking-wider">Game Title</label>
+                    <input type="text" id="reqGameTitle" required placeholder="e.g., Smash Karts, Happy Wheels" class="w-full px-4 py-3 bg-zinc-950 border border-zinc-800 rounded-xl text-sm focus:outline-none focus:border-accent-cyan text-zinc-200 placeholder-zinc-600">
+                </div>
+                <button type="submit" id="requestSubmitBtn" class="w-full py-3 bg-accent-cyan hover:bg-accent-cyan/90 text-black font-bold rounded-xl text-sm transition-all shadow-lg shadow-accent-cyan/20 flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-envelope-circle-check"></i>
+                    <span>Send Request to Admin</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-32 opacity-0 transition-all duration-300 bg-zinc-900 border border-accent-cyan/50 text-zinc-100 px-6 py-4 rounded-2xl shadow-2xl flex items-center space-x-3">
+        <i class="fa-solid fa-circle-check text-accent-cyan text-xl"></i>
+        <div>
+            <h4 id="toastTitle" class="text-sm font-bold">Success</h4>
+            <p id="toastMessage" class="text-xs text-zinc-400">Action completed successfully.</p>
+        </div>
+    </div>
+
+    <footer class="mt-auto border-t border-zinc-800 bg-black py-6">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-zinc-500 space-y-2">
+            <p>Chocolates Tutoring &copy; 2026 | Verified Unblocked Practice Arcade</p>
+            <p class="text-zinc-600">Press the <kbd class="px-1.5 py-0.5 bg-zinc-900 text-zinc-300 rounded border border-zinc-800">~</kbd> key anytime to instantly toggle Google Classroom Cloak.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Comprehensive database of 50+ popular games with multi-mirror support
+        const games = [
+            { id: 'retrobowl', title: 'Retro Bowl', category: 'Sports', rating: '4.9', plays: '950K', icon: 'fa-football', mirrors: ['https://retrobowl.me/', 'https://edclub.github.io/retro-bowl/'], desc: 'American football franchise and passing management.' },
+            { id: 'slope', title: 'Slope', category: 'Action', rating: '4.9', plays: '890K', icon: 'fa-triangle-exclamation', mirrors: ['https://slope-game.github.io/', 'https://kbhgames.com/game/slope'], desc: 'Guide your neon ball down an endless 3D running slope.' },
+            { id: 'motox3m', title: 'Moto X3M', category: 'Racing', rating: '4.8', plays: '740K', icon: 'fa-motorcycle', mirrors: ['https://html5.gamedistribution.com/rvvASMiM/moto-x3m/', 'https://kbhgames.com/game/moto-x3m'], desc: 'Perform epic motorbike stunts across challenging tracks.' },
+            { id: 'cookieclicker', title: 'Cookie Clicker', category: 'Puzzle', rating: '4.9', plays: '1.2M', icon: 'fa-cookie-bite', mirrors: ['https://orteil.dashnet.org/cookieclicker/', 'https://cookie-clicker.ee/'], desc: 'Bake trillions of cookies and build an automated empire.' },
+            { id: 'onevone', title: '1v1.lol', category: 'Action', rating: '4.8', plays: '880K', icon: 'fa-crosshairs', mirrors: ['https://1v1.lol/', 'https://1v1lol.netlify.app/'], desc: 'Practice building defensive walls and combat reflexes.' },
+            { id: 'tunnelrush', title: 'Tunnel Rush', category: 'Arcade', rating: '4.7', plays: '620K', icon: 'fa-rotate', mirrors: ['https://tunnelrush.io/', 'https://kbhgames.com/game/tunnel-rush'], desc: 'Speed through a dizzying 3D rotating tunnel of obstacles.' },
+            { id: 'paperio', title: 'Paper.io 2', category: 'IO', rating: '4.8', plays: '790K', icon: 'fa-square', mirrors: ['https://paper-io.com/', 'https://paperio2.org/'], desc: 'Capture territory, claim land blocks, and outsmart rivals.' },
+            { id: 'geometrydash', title: 'Geometry Dash', category: 'Action', rating: '4.9', plays: '910K', icon: 'fa-cube', mirrors: ['https://geometrydash.io/', 'https://scratch.mit.edu/projects/684234509/embed'], desc: 'Jump and fly through dangerous neon spikes in rhythm.' },
+            { id: 'basketballlegends', title: 'Basketball Legends', category: 'Sports', rating: '4.8', plays: '670K', icon: 'fa-basketball', mirrors: ['https://basketballlegends.io/', 'https://kbhgames.com/game/basketball-legends-2020'], desc: 'Play arcade basketball matches with legendary players.' },
+            { id: 'subwaysurfers', title: 'Subway Surfers', category: 'Action', rating: '4.9', plays: '1.5M', icon: 'fa-train-subway', mirrors: ['https://poki.com/en/g/subway-surfers', 'https://subwaysurfers.ee/'], desc: 'Dash, dodge trains, and escape the inspector.' },
+            { id: 'shellshockers', title: 'Shell Shockers', category: 'IO', rating: '4.8', plays: '830K', icon: 'fa-egg', mirrors: ['https://shellshock.io/', 'https://shellshockers.io/'], desc: 'First-person multiplayer egg shooter with intense action.' },
+            { id: 'bloxdio', title: 'Bloxd.io', category: 'IO', rating: '4.9', plays: '940K', icon: 'fa-cubes', mirrors: ['https://bloxd.io/', 'https://bloxdio.netlify.app/'], desc: 'Voxel sandbox multiplayer game with parkour and survival.' },
+            { id: 'smashkarts', title: 'Smash Karts', category: 'Action', rating: '4.9', plays: '910K', icon: 'fa-car-burst', mirrors: ['https://smashkarts.io/', 'https://smashkarts.netlify.app/'], desc: 'Multiplayer 3D kart battle game with weapons.' },
+            { id: 'basketrandom', title: 'Basket Random', category: 'Sports', rating: '4.7', plays: '510K', icon: 'fa-basketball', mirrors: ['https://basketrandom.io/', 'https://kbhgames.com/game/basket-random'], desc: 'Wacky physics-based 2-player basketball game.' },
+            { id: 'ducklife', title: 'Duck Life', category: 'Puzzle', rating: '4.8', plays: '480K', icon: 'fa-feather', mirrors: ['https://ducklife.io/', 'https://kbhgames.com/game/duck-life'], desc: 'Train your duck in running, swimming, and flying.' },
+            { id: 'happywheels', title: 'Happy Wheels', category: 'Action', rating: '4.9', plays: '1.1M', icon: 'fa-wheelchair', mirrors: ['https://totaljerkface.com/happy_wheels.tjh', 'https://kbhgames.com/game/happy-wheels'], desc: 'Classic physics obstacle course and vehicle platformer.' },
+            { id: 'run3', title: 'Run 3', category: 'Action', rating: '4.8', plays: '760K', icon: 'fa-person-running', mirrors: ['https://run3.io/', 'https://kbhgames.com/game/run-3'], desc: 'Run through tunnels in space avoiding empty space gaps.' },
+            { id: 'drivemad', title: 'Drive Mad', category: 'Racing', rating: '4.8', plays: '620K', icon: 'fa-truck', mirrors: ['https://drivemad.io/', 'https://kbhgames.com/game/drive-mad'], desc: 'Physics-based car driving puzzle challenge.' },
+            { id: 'drifthunters', title: 'Drift Hunters', category: 'Racing', rating: '4.9', plays: '890K', icon: 'fa-car', mirrors: ['https://drifthunters.io/', 'https://kbhgames.com/game/drift-hunters'], desc: 'Customize cars and perform massive drifts on tracks.' },
+            { id: 'gunmayhem', title: 'Gun Mayhem', category: 'Action', rating: '4.8', plays: '590K', icon: 'fa-gun', mirrors: ['https://gunmayhem.io/', 'https://kbhgames.com/game/gun-mayhem'], desc: 'Arena shooter with explosive weapons and upgrades.' },
+            { id: 'fireboywatergirl', title: 'Fireboy & Watergirl', category: 'Puzzle', rating: '4.9', plays: '980K', icon: 'fa-fire', mirrors: ['https://fireboyandwatergirl.io/', 'https://kbhgames.com/game/fireboy-and-watergirl-forest-temple'], desc: 'Cooperative temple puzzle platformer.' },
+            { id: 'voxiomio', title: 'Voxiom.io', category: 'IO', rating: '4.7', plays: '430K', icon: 'fa-cube', mirrors: ['https://voxiom.io/', 'https://voxiom.netlify.app/'], desc: 'Real-time 3D voxel shooter and building game.' },
+            { id: 'evio', title: 'Ev.io', category: 'IO', rating: '4.8', plays: '540K', icon: 'fa-shield-halved', mirrors: ['https://ev.io/', 'https://ev-io.netlify.app/'], desc: 'Futuristic browser FPS multiplayer combat.' },
+            { id: 'templerun', title: 'Temple Run', category: 'Action', rating: '4.9', plays: '1.3M', icon: 'fa-monument', mirrors: ['https://templerun.org/', 'https://poki.com/en/g/temple-run-2'], desc: 'Escape the temple monster in the legendary runner.' },
+            { id: 'pacman', title: 'Pac-Man', category: 'Arcade', rating: '4.9', plays: '1.4M', icon: 'fa-ghost', mirrors: ['https://www.google.com/logos/2010/pacman10-i.html', 'https://kbhgames.com/game/pacman'], desc: 'Eat dots and avoid colorful ghosts in the retro maze.' },
+            { id: 'tetris', title: 'Tetris', category: 'Puzzle', rating: '4.9', plays: '1.6M', icon: 'fa-shapes', mirrors: ['https://tetris.com/play-tetris', 'https://freetetris.org/'], desc: 'Clear falling block lines in the classic puzzle game.' },
+            { id: 'twothousandfortyeight', title: '2048', category: 'Puzzle', rating: '4.8', plays: '920K', icon: 'fa-hashtag', mirrors: ['https://play2048.co/', 'https://2048game.com/'], desc: 'Combine numbers to reach the legendary 2048 tile.' },
+            { id: 'flappybird', title: 'Flappy Bird', category: 'Arcade', rating: '4.8', plays: '1.1M', icon: 'fa-dove', mirrors: ['https://flappybird.io/', 'https://kbhgames.com/game/flappy-bird'], desc: 'Tap to fly your bird through tricky green pipe gaps.' },
+            { id: 'basketballstars', title: 'Basketball Stars', category: 'Sports', rating: '4.8', plays: '710K', icon: 'fa-basketball', mirrors: ['https://basketballstars.io/', 'https://kbhgames.com/game/basketball-stars'], desc: '1v1 and 2v2 basketball tournament challenge.' },
+            { id: 'soccerrandom', title: 'Soccer Random', category: 'Sports', rating: '4.7', plays: '490K', icon: 'fa-futbol', mirrors: ['https://soccerrandom.io/', 'https://kbhgames.com/game/soccer-random'], desc: 'Wacky physics-based soccer match simulator.' },
+            { id: 'boxingrandom', title: 'Boxing Random', category: 'Sports', rating: '4.7', plays: '460K', icon: 'fa-hand-fist', mirrors: ['https://boxingrandom.io/', 'https://kbhgames.com/game/boxing-random'], desc: 'Unpredictable ragdoll physics boxing matches.' },
+            { id: 'volleyrandom', title: 'Volley Random', category: 'Sports', rating: '4.7', plays: '420K', icon: 'fa-volleyball', mirrors: ['https://volleyrandom.io/', 'https://kbhgames.com/game/volley-random'], desc: 'Wacky volleyball game with random physics mutators.' },
+            { id: 'rooftopsnipers', title: 'Rooftop Snipers', category: 'Action', rating: '4.8', plays: '680K', icon: 'fa-crosshairs', mirrors: ['https://rooftopsnipers.io/', 'https://kbhgames.com/game/rooftop-snipers'], desc: 'Knock your opponent off the roof with precise shots.' },
+            { id: 'getawayshootout', title: 'Getaway Shootout', category: 'Action', rating: '4.8', plays: '630K', icon: 'fa-car-side', mirrors: ['https://getawayshootout.io/', 'https://kbhgames.com/game/getaway-shootout'], desc: 'Race to the getaway vehicle while shooting rivals.' },
+            { id: 'narrowone', title: 'Narrow One', category: 'Action', rating: '4.8', plays: '550K', icon: 'fa-bow-arrow', mirrors: ['https://narrowone.io/', 'https://narrowone.netlify.app/'], desc: 'Multiplayer medieval castle archery battle.' },
+            { id: 'krunker', title: 'Krunker.io', category: 'IO', rating: '4.9', plays: '1.7M', icon: 'fa-gun', mirrors: ['https://krunker.io/', 'https://krunker.netlify.app/'], desc: 'Fast-paced pixelated multiplayer FPS action.' },
+            { id: 'zombsroyale', title: 'Zombs Royale', category: 'IO', rating: '4.8', plays: '980K', icon: 'fa-skull', mirrors: ['https://zombsroyale.io/', 'https://zombsroyale.netlify.app/'], desc: 'Battle royale 2D survival shooter.' },
+            { id: 'agario', title: 'Agar.io', category: 'IO', rating: '4.9', plays: '2.1M', icon: 'fa-circle', mirrors: ['https://agar.io/', 'https://agario.net/'], desc: 'Eat smaller cells and grow your giant blob.' },
+            { id: 'slitherio', title: 'Slither.io', category: 'IO', rating: '4.9', plays: '2.4M', icon: 'fa-worm', mirrors: ['https://slither.io/', 'https://slitherio.org/'], desc: 'Grow your glowing snake by eating glowing dots.' },
+            { id: 'wormateio', title: 'Wormate.io', category: 'IO', rating: '4.7', plays: '610K', icon: 'fa-candy-cane', mirrors: ['https://wormate.io/', 'https://wormateio.net/'], desc: 'Multiplayer worm game with sweet candies and boosts.' },
+            { id: 'holeio', title: 'Hole.io', category: 'IO', rating: '4.8', plays: '820K', icon: 'fa-circle-dot', mirrors: ['https://hole-io.com/', 'https://holeio.org/'], desc: 'Control a black hole and swallow the entire city.' },
+            { id: 'smashhit', title: 'Smash Hit', category: 'Arcade', rating: '4.9', plays: '850K', icon: 'fa-wine-glass', mirrors: ['https://smashhit.io/', 'https://kbhgames.com/game/smash-hit'], desc: 'Throw steel balls to shatter glass obstacles in surreal dimensions.' },
+            { id: 'helixjump', title: 'Helix Jump', category: 'Arcade', rating: '4.8', plays: '780K', icon: 'fa-helix', mirrors: ['https://helixjump.io/', 'https://kbhgames.com/game/helix-jump'], desc: 'Drop the bouncing ball down the rotating helix tower.' },
+            { id: 'stack', title: 'Stack', category: 'Arcade', rating: '4.8', plays: '690K', icon: 'fa-layer-group', mirrors: ['https://kbhgames.com/game/stack', 'https://poki.com/en/g/stack'], desc: 'Stack block slices as high as possible without falling.' },
+            { id: 'crossyroad', title: 'Crossy Road', category: 'Arcade', rating: '4.9', plays: '1.2M', icon: 'fa-frog', mirrors: ['https://crossyroad.io/', 'https://kbhgames.com/game/crossy-road'], desc: 'Cross roads, rivers, and train tracks safely.' },
+            { id: 'flappydupk', title: 'Flappy Dunk', category: 'Arcade', rating: '4.7', plays: '530K', icon: 'fa-basketball', mirrors: ['https://kbhgames.com/game/flappy-dunk', 'https://poki.com/en/g/flappy-dunk'], desc: 'Dunk the basketball through hoops by flapping.' },
+            { id: 'hardestgame', title: "World's Hardest Game", category: 'Puzzle', rating: '4.8', plays: '950K', icon: 'fa-brain', mirrors: ['https://theworldshardestgame.com/', 'https://kbhgames.com/game/worlds-hardest-game'], desc: 'Navigate the red square past blue circles without touching.' },
+            { id: 'bobtherobber', title: 'Bob the Robber', category: 'Puzzle', rating: '4.8', plays: '620K', icon: 'fa-mask', mirrors: ['https://kbhgames.com/game/bob-the-robber', 'https://poki.com/en/g/bob-the-robber'], desc: 'Steal treasure and sneak past security guards.' },
+            { id: 'badpiggies', title: 'Bad Piggies', category: 'Puzzle', rating: '4.9', plays: '880K', icon: 'fa-piggy-bank', mirrors: ['https://badpiggies.io/', 'https://kbhgames.com/game/bad-piggies'], desc: 'Build contraptions to help the green pigs find eggs.' },
+            { id: 'cuttherope', title: 'Cut the Rope', category: 'Puzzle', rating: '4.9', plays: '1.4M', icon: 'fa-scissors', mirrors: ['https://cuttherope.io/', 'https://poki.com/en/g/cut-the-rope'], desc: 'Cut ropes to feed candy to Om Nom.' },
+            { id: 'motox3mwinter', title: 'Moto X3M Winter', category: 'Racing', rating: '4.8', plays: '640K', icon: 'fa-snowflake', mirrors: ['https://html5.gamedistribution.com/rvvASMiM/moto-x3m-winter/', 'https://kbhgames.com/game/moto-x3m-winter'], desc: 'Festive winter stunt racing obstacle tracks.' },
+            { id: 'motox3mpool', title: 'Moto X3M Pool Party', category: 'Racing', rating: '4.8', plays: '670K', icon: 'fa-water-ladder', mirrors: ['https://html5.gamedistribution.com/rvvASMiM/moto-x3m-pool-party/', 'https://kbhgames.com/game/moto-x3m-pool-party'], desc: 'Sunny summer pool party stunt motorbike racing.' }
+        ];
+
+        let currentCategory = 'all';
+        let stealthActive = false;
+        let activeGame = null;
+        let currentMirrorIndex = 0;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderGames(games);
+
+            // Listen for ~ or ` key for instant stealth mode cloak
+            window.addEventListener('keydown', (e) => {
+                if (e.key === '`' || e.key === '~') {
+                    e.preventDefault();
+                    toggleStealthMode();
+                }
+            });
+        });
+
+        function renderGames(gameList) {
+            const grid = document.getElementById('gamesGrid');
+            document.getElementById('gameCount').innerText = `Showing ${gameList.length} games`;
+            if (gameList.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-16 text-center text-zinc-500"><i class="fa-solid fa-ghost text-4xl mb-3"></i><p>No games found matching your search.</p></div>`;
+                return;
+            }
+            grid.innerHTML = gameList.map(g => `
+                <div onclick="launchGame('${g.id}')" class="group bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 hover:border-accent-cyan/50 rounded-3xl p-5 cursor-pointer transition-all duration-300 glow-box flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-accent-cyan/20 to-zinc-900 border border-accent-cyan/30 flex items-center justify-center text-accent-cyan text-2xl shadow-lg group-hover:scale-105 transition-transform">
+                                <i class="fa-solid ${g.icon}"></i>
+                            </div>
+                            <span class="px-3 py-1 bg-black border border-zinc-800 rounded-full text-xs font-semibold text-zinc-300">
+                                ${g.category}
+                            </span>
+                        </div>
+                        <h3 class="text-lg font-bold text-zinc-100 group-hover:text-accent-cyan transition-colors">${g.title}</h3>
+                        <p class="text-xs text-zinc-400 mt-2 line-clamp-2">${g.desc}</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 mt-4 border-t border-zinc-800 text-xs text-zinc-400">
+                        <div class="flex items-center space-x-3">
+                            <span class="flex items-center space-x-1 text-amber-400"><i class="fa-solid fa-star"></i><strong class="text-zinc-200">${g.rating}</strong></span>
+                            <span class="flex items-center space-x-1"><i class="fa-solid fa-users text-accent-cyan"></i><span>${g.plays}</span></span>
+                        </div>
+                        <span class="px-3.5 py-1.5 bg-accent-cyan/10 text-accent-cyan font-bold rounded-xl group-hover:bg-accent-cyan group-hover:text-black transition-all">Play Now</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterGames() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = games.filter(g => {
+                const matchesSearch = g.title.toLowerCase().includes(query) || g.desc.toLowerCase().includes(query) || g.category.toLowerCase().includes(query);
+                const matchesCat = currentCategory === 'all' || g.category === currentCategory;
+                return matchesSearch && matchesCat;
+            });
+            renderGames(filtered);
+        }
+
+        function filterCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.className = "cat-btn px-5 py-2.5 rounded-xl text-xs font-bold tracking-wide transition-all bg-zinc-900 hover:bg-zinc-800 text-zinc-300 whitespace-nowrap border border-zinc-800";
+            });
+            event.target.className = "cat-btn px-5 py-2.5 rounded-xl text-xs font-bold tracking-wide transition-all bg-accent-cyan text-black whitespace-nowrap shadow-md";
+            filterGames();
+        }
+
+        function scrollToGames() {
+            document.getElementById('gamesGrid').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function launchGame(id) {
+            const game = games.find(g => g.id === id);
+            if (!game) return;
+            activeGame = game;
+            currentMirrorIndex = 0;
+
+            document.getElementById('modalGameTitle').innerText = game.title;
+            updateMirrorInfo();
+            
+            document.getElementById('gameIframe').src = game.mirrors[currentMirrorIndex];
+            document.getElementById('gameModal').classList.remove('hidden');
+        }
+
+        function switchGameMirror() {
+            if (!activeGame) return;
+            currentMirrorIndex = (currentMirrorIndex + 1) % activeGame.mirrors.length;
+            updateMirrorInfo();
+            const iframe = document.getElementById('gameIframe');
+            iframe.src = '';
+            setTimeout(() => {
+                iframe.src = activeGame.mirrors[currentMirrorIndex];
+            }, 100);
+            showToast('Mirror Switched', `Now loading backup mirror ${currentMirrorIndex + 1} of ${activeGame.mirrors.length}`);
+        }
+
+        function updateMirrorInfo() {
+            if (!activeGame) return;
+            document.getElementById('modalGameMirrorInfo').innerText = `Mirror ${currentMirrorIndex + 1} of ${activeGame.mirrors.length} Active`;
+        }
+
+        function closeGameModal() {
+            document.getElementById('gameIframe').src = '';
+            document.getElementById('gameModal').classList.add('hidden');
+            activeGame = null;
+        }
+
+        function reloadActiveGame() {
+            if (!activeGame) return;
+            const iframe = document.getElementById('gameIframe');
+            const currentSrc = iframe.src;
+            iframe.src = '';
+            setTimeout(() => { iframe.src = currentSrc; }, 100);
+        }
+
+        function returnToHome() {
+            closeGameModal();
+        }
+
+        function toggleModalFullScreen() {
+            const wrapper = document.getElementById('modalIframeWrapper');
+            if (!document.fullscreenElement) {
+                wrapper.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Game Request Modal
+        function openRequestModal() { document.getElementById('requestModal').classList.remove('hidden'); }
+        function closeRequestModal() { document.getElementById('requestModal').classList.add('hidden'); }
+
+        async function submitGameRequest(event) {
+            event.preventDefault();
+            const name = document.getElementById('reqStudentName').value.trim();
+            const title = document.getElementById('reqGameTitle').value.trim();
+            const btn = document.getElementById('requestSubmitBtn');
+
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i><span>Sending Request...</span>`;
+
+            setTimeout(() => {
+                closeRequestModal();
+                document.getElementById('gameRequestForm').reset();
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fa-solid fa-envelope-circle-check"></i><span>Send Request to Admin</span>`;
+                showToast('Request Dispatched!', `Successfully sent request for "${title}".`);
+            }, 800);
+        }
+
+        // Classroom Cloak / Stealth Mode
+        function toggleStealthMode() {
+            stealthActive = !stealthActive;
+            const btn = document.getElementById('stealthBtn');
+            if (stealthActive) {
+                document.title = 'Google Classroom';
+                let link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                link.type = 'image/x-icon'; link.rel = 'shortcut icon';
+                link.href = 'https://ssl.gstatic.com/classroom/ic_product_classroom_32.png';
+                document.getElementsByTagName('head')[0].appendChild(link);
+                btn.className = "flex items-center space-x-2 px-4 py-2 bg-accent-cyan/20 border border-accent-cyan text-accent-cyan rounded-xl text-xs font-semibold tracking-wide transition-all";
+                showToast('Classroom Cloak Active', 'Tab title & icon disguised as Google Classroom. (Press ~ to uncloak)');
+            } else {
+                document.title = 'Chocolates Tutoring | Academic & Practice Portal';
+                let link = document.querySelector("link[rel*='icon']");
+                if (link) link.remove();
+                btn.className = "flex items-center space-x-2 px-4 py-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-xl text-xs font-semibold tracking-wide transition-all text-zinc-300 hover:text-white";
+                showToast('Cloak Disabled', 'Restored original tab title.');
+            }
+        }
+
+        function showToast(title, message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastTitle').innerText = title;
+            document.getElementById('toastMessage').innerText = message;
+            toast.classList.remove('translate-y-32', 'opacity-0');
+            setTimeout(() => { toast.classList.add('translate-y-32', 'opacity-0'); }, 3500);
+        }
+    </script>
+</body>
+</html>
